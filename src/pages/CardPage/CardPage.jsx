@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'
+
 
 import style from './CardPage.module.css'
 
 const CardPage = (props) => {
 
-const[cartCount,setCartCount] = useState('')
+
 
   
 
 
   return (
-    <div>
+    <div className={style.cartItem}>
         {
             props.card.map((el)=>{
                 return (
-                    <>
+                    <div className={style.cart}>
                     <li key={el.id}>{el.title}</li>
                     <img src={el.image} width={150}/>
-                    <p>{cartCount}</p>
+               
                     
-                    </>
+                    </div>
                 )
 
             })
