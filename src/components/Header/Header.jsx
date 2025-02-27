@@ -12,7 +12,7 @@ const Header = () => {
     <h1 style={{fontSize: '40px'}}><IoLogoPlaystation /></h1>
         </NavLink>
         <div style={{fontSize: '25px'}}>
-       <NavLink to='/card'>
+       <NavLink to='/cart'>
         <MdOutlineShoppingCartCheckout />
        </NavLink>
         </div>

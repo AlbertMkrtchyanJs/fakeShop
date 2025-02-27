@@ -8,7 +8,7 @@ const HomePage = (props) => {
     <div className={style.products}>
     {
         props.prod.map((el)=>{
-                return <ProductCard key={el} el={el} addToCart={props.addToCart}/>
+                return <ProductCard key={el.id} el={el} addToCart={props.addToCart}/>
                 
             })
         }

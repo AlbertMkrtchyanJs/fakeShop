@@ -2,7 +2,7 @@
 import { Routes,Route } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import CardPage from './pages/cardPage/CardPage'
+import CardPage from './pages/CardPage/CardPage'
 import Layout from './components/Layout/Layout'
 import HomePage from './pages/HomePage/HomePage'
 
@@ -23,8 +23,15 @@ useEffect(()=>{
   })))
 },[])
 
-const addToCart = (item) => {
-  setCard([...card,item])
+const addToCart = (item ) => {
+ setCard((card)=>{
+  const exists = card.some((el)=>el.id === item.id)
+
+  if (!exists) {
+    return [...card,item]
+  }
+return card
+ })
   
 }
 
@@ -33,7 +40,7 @@ const addToCart = (item) => {
      <Routes>
       <Route path='/' element={<Layout/> }>
         <Route index element={<HomePage prod={prod}  addToCart={addToCart}/> }/>
-        <Route path='/card' element={<CardPage card={card}/>}/>
+        <Route path='/cart' element={<CardPage card={card} setProd={setCard}/>}/>
       </Route>
      </Routes>
     </div>
