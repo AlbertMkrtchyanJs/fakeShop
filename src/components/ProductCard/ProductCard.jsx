@@ -1,12 +1,17 @@
-import React from 'react'
+import React  from 'react'
 import style from './ProductCard.module.css'
 
 const ProductCard = (props) => {
 
-const handleToCart = (el) => {
- props.addToCart(el,el.id)
- 
+  
+
+  
+  const handleToCart = (el) => {
+    props.addToCart(el,el.id)
+    
+    props.quant()
 }
+
 
   return (
     <div className={style.product}>

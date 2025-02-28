@@ -11,6 +11,7 @@ import style from './App.module.css'
 function App() {
   const[prod,setProd] = useState([])
   const[card,setCard] = useState([])
+  const [quantity,setQuantity] = useState(0)
 useEffect(()=>{
   fetch('https://fakestoreapi.com/products')
   .then(res => res.json())
@@ -22,6 +23,7 @@ useEffect(()=>{
     }
   })))
 },[])
+const quant = () => setQuantity(quantity + 1)
 
 const addToCart = (item ) => {
  setCard((card)=>{
@@ -39,8 +41,8 @@ return card
     <div className={style.App}>
      <Routes>
       <Route path='/' element={<Layout/> }>
-        <Route index element={<HomePage prod={prod}  addToCart={addToCart}/> }/>
-        <Route path='/cart' element={<CardPage card={card} setProd={setCard}/>}/>
+        <Route index element={<HomePage prod={prod} quant={quant} addToCart={addToCart}/> }/>
+        <Route path='/cart' element={<CardPage quant={quant}  card={card} setProd={setCard}/>}/>
       </Route>
      </Routes>
     </div>
