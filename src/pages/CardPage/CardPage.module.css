@@ -18,6 +18,11 @@
 .clear{
 position: absolute;
 left: 1300px;
-/* right: 100px; */
-/* top: 50px; */
+}
+
+.butt{
+    height: 30px;
+    width: 100px;
+    border-radius: 12px;
+    background-color: slateblue;
 }

@@ -33,7 +33,7 @@ function App() {
   
   const removeCart = (id) => {
    
-    setCart(cart.filter(cards => cards.id !== id))
+    setCards(cards.filter(cards => cards.id !== id))
   }
 
   const change = (count, id) => {
@@ -51,7 +51,7 @@ function App() {
   }
 
   const ClaerAllPage = () => {
-    setCart([])
+    setCards([])
   }
 
   

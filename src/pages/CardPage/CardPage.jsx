@@ -9,11 +9,13 @@ const CardPage = (props) => {
     props.ClaerAllPage()
   }
 
+ 
+
 
   return (
     <div className={style.cartItem}>
                 <div className={style.clear}>
-                   <button onClick={clear} >Clear All</button>
+                   <button className={style.butt} onClick={clear} >Clear All</button>
                 </div>
         {
             props.cards.map((el)=>{
@@ -21,6 +23,7 @@ const CardPage = (props) => {
                    <CardItem key={el.id}  el={el} change ={props.change} removeCart ={props.removeCart}/>
                 )})
         }
+       
     </div>
   )
 }
