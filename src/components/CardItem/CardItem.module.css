@@ -1,0 +1,31 @@
+.Big {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 700px;
+    border : 1px solid black;
+    padding: 20px;
+    gap: 15px;
+  
+}
+
+.first {
+    width: 300px;
+}
+
+.second {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.third{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.Xbutton{
+   margin-bottom: 230px;
+   margin-left: 80px;
+}

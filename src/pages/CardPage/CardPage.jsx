@@ -1,23 +1,25 @@
 
 
+import CardItem from '../../components/CardItem/CardItem'
 import style from './CardPage.module.css'
 
 const CardPage = (props) => {
 
+  const clear = () => {
+    props.ClaerAllPage()
+  }
+
+
   return (
     <div className={style.cartItem}>
+                <div className={style.clear}>
+                   <button onClick={clear} >Clear All</button>
+                </div>
         {
-            props.card.map((el)=>{
+            props.cards.map((el)=>{
                 return (
-                    <div className={style.cart}>
-                    <li key={el.id}>{el.title}</li>
-                    <img src={el.image} width={150}/>
-                    <p>Price:{el.price}$</p>
-                    <p>Count:{props.quant}</p>
-                    </div>
-                )
-
-            })
+                   <CardItem key={el.id}  el={el} change ={props.change} removeCart ={props.removeCart}/>
+                )})
         }
     </div>
   )

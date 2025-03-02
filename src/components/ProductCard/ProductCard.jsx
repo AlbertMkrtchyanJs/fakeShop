@@ -7,9 +7,9 @@ const ProductCard = (props) => {
 
   
   const handleToCart = (el) => {
-    props.addToCart(el,el.id)
+    props.addToCart(el)
     
-    props.quant()
+   
 }
 
 
