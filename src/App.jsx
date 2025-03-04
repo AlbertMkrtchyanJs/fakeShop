@@ -4,28 +4,38 @@ import { useEffect, useState } from "react";
 import CardPage from "./pages/CardPage/CardPage";
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
+import Product from "./pages/Product/Product";
+import Login from "./pages/Login/Login";
 
 import style from "./App.module.css";
+import axios from "axios";
+import Profile from "./pages/Profile/Profile";
+
+export const instance = axios.create({
+  baseURL : "https://fakestoreapi.com"
+})
 
 function App() {
   const [prod, setProd] = useState([]);
   const [cards, setCards] = useState([]);
-  const [cart,setCart] = useState([])
+  const [users,setUsers] = useState([
+    {id : 1 , name : 'Gago' , email : 'Gago@gmail.com' , password : '1234'},
+    {id : 2 , name : 'Abo' , email : 'Abo@gmail.com' , password : '1234'}
+
+  ])
+  
  
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((res) =>
-        setProd(
-          res.map((prod) => {
-            return {
-              ...prod,
-              count: 1,
-              cardPrice: prod.price,
-            };
-          })
-        )
-      );
+    instance.get("/products")
+    .then((res)=> setProd(
+      res.data.map((prod) => {
+        return {
+          ...prod,
+          count: 1,
+          cardPrice: prod.price,
+        };
+      })
+    ))
   }, []);
 
   
@@ -95,10 +105,22 @@ function App() {
               <HomePage prod={prod}  addToCart={addToCart} />
             }
           />
+          <Route 
+          path="/products/:id"
+           element={<Product/>}
+           />
           <Route
             path="/cart"
             element={<CardPage  cards={cards} change={change} removeCart={removeCart} ClaerAllPage={ClaerAllPage}/>}
           />
+          <Route
+           path="/login"
+            element={<Login users={users}/>}
+            />
+            <Route 
+            path="/profile" 
+            element={<Profile/>}
+            />
         </Route>
       </Routes>
     </div>

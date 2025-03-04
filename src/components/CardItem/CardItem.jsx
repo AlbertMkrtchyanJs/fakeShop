@@ -33,7 +33,7 @@ const CardItem = (props) => {
         </div>
         <div className={style.third}>
             <h4>Price:{props.el.cardPrice}$</h4>
-            <button className={style.Xbutton} onClick={remove}>x</button>
+            <button className={style.Xbutton} onClick={remove}>remove</button>
         </div>
     </div>
   )
