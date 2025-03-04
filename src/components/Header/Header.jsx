@@ -26,7 +26,7 @@ const Header = (props) => {
         </NavLink>
         }
         {
-          pathname === '/profile' ||
+          pathname === '/profile'  ||
           <NavLink to='/profile'  style={{textDecoration: 'none'}}>
           My Profile <CgProfile style={{paddingRight: '50px'}}/>
         </NavLink>

@@ -1,0 +1,13 @@
+.prof{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid gray;
+    width: 500px;
+    min-height: 300px;
+    border-radius: 15px;
+}
+
+.img{
+    border-radius: 20px;
+}
