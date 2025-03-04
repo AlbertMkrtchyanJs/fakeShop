@@ -2,8 +2,9 @@ import React from "react";
 
 import { NavLink, useLocation } from "react-router-dom";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
-import { FiLogIn } from "react-icons/fi";
+import { FiLogIn,FiUserPlus } from "react-icons/fi";
 import { IoLogoPlaystation } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
 import style from "./Header.module.css";
 
 const Header = (props) => {
@@ -18,9 +19,24 @@ const Header = (props) => {
         </h1>
       </NavLink>
       <div style={{ fontSize: "25px" }}>
-        <NavLink to='/login'>
-          <FiLogIn style={{paddingRight: '50px'}}/>
+        {
+          pathname === '/registration' ||
+          <NavLink to='/registration'  style={{textDecoration: 'none'}}>
+          Register Now <FiUserPlus style={{paddingRight: '50px'}}/>
         </NavLink>
+        }
+        {
+          pathname === '/profile' ||
+          <NavLink to='/profile'  style={{textDecoration: 'none'}}>
+          My Profile <CgProfile style={{paddingRight: '50px'}}/>
+        </NavLink>
+        }
+        {
+          pathname === '/login' ||
+           <NavLink to='/login' style={{textDecoration: 'none'}}>
+          Log in <FiLogIn style={{paddingRight: '50px'}}/>
+        </NavLink>
+        }
      { pathname === '/cart' ||
         <NavLink to="/cart">
           <MdOutlineShoppingCartCheckout />

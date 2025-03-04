@@ -6,6 +6,7 @@ import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
 import Product from "./pages/Product/Product";
 import Login from "./pages/Login/Login";
+import Reg from "./pages/Reg/Reg";
 
 import style from "./App.module.css";
 import axios from "axios";
@@ -116,6 +117,10 @@ function App() {
           <Route
            path="/login"
             element={<Login users={users}/>}
+            />
+            <Route
+           path="/registration"
+            element={<Reg setUsers={setUsers}/>}
             />
             <Route 
             path="/profile" 

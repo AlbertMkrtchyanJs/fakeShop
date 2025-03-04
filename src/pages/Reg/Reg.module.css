@@ -1,0 +1,28 @@
+.regForm{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    gap: 10px;
+    align-items: center;
+}
+
+.butt{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: forestgreen;
+    transition: all 1s;
+}
+
+.butt:hover{
+    background-color: royalblue;
+    color: white;
+    cursor: pointer;
+}
+
+.input{
+    height: 25px;
+    background-color: whitesmoke;
+    border-radius: 8px;
+
+}
