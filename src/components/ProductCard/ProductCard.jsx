@@ -5,7 +5,7 @@ import Button from '../Button/Button'
 
 const ProductCard = (props) => {
 
- const handleToCart = (el) => {
+  const handleToCart = (el) => {
     props.addToCart(el)   
 }
 
@@ -15,7 +15,7 @@ const ProductCard = (props) => {
         <NavLink to={`/products/${props.el.id}`}>
         <img src={props.el.image} width={200} height={250}/>
         </NavLink>
-        <Button handleToCart={ handleToCart} />
+        <Button handleToCart={() => handleToCart(props.el)} />
     </div>
   )
 }

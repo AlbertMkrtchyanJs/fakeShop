@@ -18,7 +18,7 @@ instance.get(`/products/${id}`)
     <div>
         <h1>{product?.title}</h1>
         <img src={product.image} width={250}/>
-        <Button />
+        <Button handleToCart = {handleToCart}/>
     </div>
   )
 }

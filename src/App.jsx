@@ -25,17 +25,7 @@ function App() {
   ]);
 
   useEffect(() => {
-    instance.get("/products").then((res) =>
-      setProd(
-        res.data.map((prod) => {
-          return {
-            ...prod,
-            count: 1,
-            cardPrice: prod.price,
-          };
-        })
-      )
-    );
+    instance.get("/products").then((res) => setProd(res.data));
     const savedProducts = JSON.parse(localStorage.getItem("items")) || [];
     setCards(savedProducts);
   }, []);
@@ -65,33 +55,17 @@ function App() {
   };
 
   const addToCart = (item) => {
-    localStorage.setItem("items", JSON.stringify(cards));
+   localStorage.setItem('items', JSON.stringify(cards)) 
 
-    let bull = false;
-
-    cards.forEach((card) => {
-      if (card.id === item.id) {
-        bull = true;
-        setCards(
-          cards.map((el) => {
-            if (el.id === item.id) {
-              return {
-                ...el,
-                count: ++el.count,
-                cardPrice: el.cardPrice + el.price,
-              };
-            } else {
-              return el;
-            }
-          })
-        );
-      }
-    });
-
-    if (!bull) {
-      setCards((card) => {
-        return [...card, item];
-      });
+    const findedProd = cards.find((el) => el.id === item.id);
+    if (findedProd) {
+      setCards(
+        cards.map((el) => {
+          return el.id === item.id ? { ...el, count: el.count + 1 } : el;
+        })
+      );
+    } else {
+      setCards([...cards, { ...item, count: 1 }]);
     }
   };
 
