@@ -11,7 +11,7 @@ const Reg = ({setUsers}) => {
 
     const regist = (val) => {
         navigate("/")
-        setUsers(val)
+        setUsers((prev) => [...prev,val])
     }
     const navigate = useNavigate()
 

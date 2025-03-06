@@ -13,119 +13,111 @@ import axios from "axios";
 import Profile from "./pages/Profile/Profile";
 
 export const instance = axios.create({
-  baseURL : "https://fakestoreapi.com"
-})
+  baseURL: "https://fakestoreapi.com",
+});
 
 function App() {
   const [prod, setProd] = useState([]);
   const [cards, setCards] = useState([]);
-  const [users,setUsers] = useState([
-    {id : 1 , name : 'Gago' , email : 'Gago@gmail.com' , password : '1234'},
-    {id : 2 , name : 'Abo' , email : 'Abo@gmail.com' , password : '1234'}
+  const [users, setUsers] = useState([
+    { id: 1, name: "Gago", email: "Gago@gmail.com", password: "1234" },
+    { id: 2, name: "Abo", email: "Abo@gmail.com", password: "1234" },
+  ]);
 
-  ])
-  
- 
   useEffect(() => {
-    instance.get("/products")
-    .then((res)=> setProd(
-      res.data.map((prod) => {
-        return {
-          ...prod,
-          count: 1,
-          cardPrice: prod.price,
-        };
-      })
-    ))
+    instance.get("/products").then((res) =>
+      setProd(
+        res.data.map((prod) => {
+          return {
+            ...prod,
+            count: 1,
+            cardPrice: prod.price,
+          };
+        })
+      )
+    );
+    const savedProducts = JSON.parse(localStorage.getItem("items")) || [];
+    setCards(savedProducts);
   }, []);
 
-  
-  
-  
   const removeCart = (id) => {
-   
-    setCards(cards.filter(cards => cards.id !== id))
-  }
+    setCards(cards.filter((cards) => cards.id !== id));
+  };
 
   const change = (count, id) => {
-    setCards(cards.map((card) => {
-      if(card.id === id){
-        return {
-          ...card,
-          count : count,
-          cardPrice : card.price * count
+    setCards(
+      cards.map((card) => {
+        if (card.id === id) {
+          return {
+            ...card,
+            count: count,
+            cardPrice: card.price * count,
+          };
+        } else {
+          return card;
         }
-      }else {
-        return card
-      }
-    }))
-  }
+      })
+    );
+  };
 
   const ClaerAllPage = () => {
-    setCards([])
-  }
-
-  
+    setCards([]);
+  };
 
   const addToCart = (item) => {
+    localStorage.setItem("items", JSON.stringify(cards));
 
-    let bull = false
+    let bull = false;
 
     cards.forEach((card) => {
       if (card.id === item.id) {
-        bull = true
-        setCards(cards.map((el) => {
-          if (el.id === item.id) {
-            return{
-              ...el,
-              count : ++el.count,
-              cardPrice : el.cardPrice + el.price 
+        bull = true;
+        setCards(
+          cards.map((el) => {
+            if (el.id === item.id) {
+              return {
+                ...el,
+                count: ++el.count,
+                cardPrice: el.cardPrice + el.price,
+              };
+            } else {
+              return el;
             }
-          }else {
-            return el
-          }
-        }))
+          })
+        );
       }
-    })
+    });
 
-    if(!bull){
-      setCards((card)=>{
-        return[...card,item]
-      })
+    if (!bull) {
+      setCards((card) => {
+        return [...card, item];
+      });
     }
-    
   };
 
   return (
     <div className={style.App}>
       <Routes>
-        <Route path="/" element={<Layout cards= {cards}/>}>
+        <Route path="/" element={<Layout cards={cards} />}>
           <Route
             index
-            element={
-              <HomePage prod={prod}  addToCart={addToCart} />
-            }
+            element={<HomePage prod={prod} addToCart={addToCart} />}
           />
-          <Route 
-          path="/products/:id"
-           element={<Product/>}
-           />
+          <Route path="/products/:id" element={<Product />} />
           <Route
             path="/cart"
-            element={<CardPage  cards={cards} change={change} removeCart={removeCart} ClaerAllPage={ClaerAllPage}/>}
+            element={
+              <CardPage
+                cards={cards}
+                change={change}
+                removeCart={removeCart}
+                ClaerAllPage={ClaerAllPage}
+              />
+            }
           />
-          <Route
-           path="/login"
-            element={<Login users={users}/>}
-            />
-            <Route
-           path="/registration"
-            element={<Reg setUsers={setUsers}/>}
-            />
-            <Route 
-            path="/profile" 
-            element={<Profile/>}
-            />
+          <Route path="/login" element={<Login users={users} />} />
+          <Route path="/registration" element={<Reg setUsers={setUsers} />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </div>

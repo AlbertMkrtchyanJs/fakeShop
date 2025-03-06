@@ -5,7 +5,7 @@ import Button from '../Button/Button'
 
 const ProductCard = (props) => {
 
-  const handleToCart = (el) => {
+ const handleToCart = (el) => {
     props.addToCart(el)   
 }
 
