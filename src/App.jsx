@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { MyContext } from "./context/myContext";
 
 import CardPage from "./pages/CardPage/CardPage";
 import Layout from "./components/Layout/Layout";
@@ -9,7 +11,6 @@ import Login from "./pages/Login/Login";
 import Reg from "./pages/Reg/Reg";
 
 import style from "./App.module.css";
-import axios from "axios";
 import Profile from "./pages/Profile/Profile";
 
 export const instance = axios.create({
@@ -55,7 +56,7 @@ function App() {
   };
 
   const addToCart = (item) => {
-   localStorage.setItem('items', JSON.stringify(cards)) 
+    localStorage.setItem("items", JSON.stringify(cards));
 
     const findedProd = cards.find((el) => el.id === item.id);
     if (findedProd) {
@@ -71,29 +72,30 @@ function App() {
 
   return (
     <div className={style.App}>
-      <Routes>
-        <Route path="/" element={<Layout cards={cards} />}>
-          <Route
-            index
-            element={<HomePage prod={prod} addToCart={addToCart} />}
-          />
-          <Route path="/products/:id" element={<Product />} />
-          <Route
-            path="/cart"
-            element={
-              <CardPage
-                cards={cards}
-                change={change}
-                removeCart={removeCart}
-                ClaerAllPage={ClaerAllPage}
-              />
-            }
-          />
-          <Route path="/login" element={<Login users={users} />} />
-          <Route path="/registration" element={<Reg setUsers={setUsers} />} />
-          <Route path="/profile" element={<Profile />} />
-        </Route>
-      </Routes>
+      <MyContext.Provider
+        value={{
+          cards,
+          prod,
+          addToCart,
+          change,
+          removeCart,
+          ClaerAllPage,
+          users,
+          setUsers,
+          
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/products/:id" element={<Product />} />
+            <Route path="/cart" element={<CardPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registration" element={<Reg />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+        </Routes>
+      </MyContext.Provider>
     </div>
   );
 }

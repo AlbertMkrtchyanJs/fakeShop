@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { NavLink, useLocation } from "react-router-dom";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
@@ -6,8 +6,10 @@ import { FiLogIn,FiUserPlus } from "react-icons/fi";
 import { IoLogoPlaystation } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import style from "./Header.module.css";
+import { MyContext } from "../../context/myContext";
 
-const Header = (props) => {
+const Header = () => {
+ const {cards} = useContext(MyContext)
 
   let {pathname} = useLocation()
 
@@ -40,7 +42,7 @@ const Header = (props) => {
      { pathname === '/cart' ||
         <NavLink to="/cart">
           <MdOutlineShoppingCartCheckout />
-          <sub>{props.cards.length}</sub>
+          <sub>{cards.length}</sub>
         </NavLink>}
       </div>
     </div>

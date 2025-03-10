@@ -2,13 +2,14 @@ import { Formik,Form,Field,ErrorMessage} from 'formik'
 import * as YUP from 'yup'
 import { useNavigate } from 'react-router-dom'
 
-import React from 'react'
+import React, { useContext } from 'react'
 
 import style from './Reg.module.css'
+import { MyContext } from '../../context/myContext'
 
-const Reg = ({setUsers}) => {
+const Reg = () => {
 
-
+    const{setUsers} = useContext(MyContext)
     const regist = (val) => {
         navigate("/")
         setUsers((prev) => [...prev,val])

@@ -1,12 +1,14 @@
 
 
+import { useContext } from 'react'
 import CardItem from '../../components/CardItem/CardItem'
 import style from './CardPage.module.css'
+import { MyContext } from '../../context/myContext'
 
-const CardPage = (props) => {
-
+const CardPage = () => {
+const {cards,removeCart,ClaerAllPage,change} = useContext(MyContext)
   const clear = () => {
-    props.ClaerAllPage()
+    ClaerAllPage()
   }
 
  
@@ -18,9 +20,9 @@ const CardPage = (props) => {
                    <button className={style.butt} onClick={clear} >Clear All</button>
                 </div>
         {
-            props.cards.map((el)=>{
+            cards.map((el)=>{
                 return (
-                   <CardItem key={el.id}  el={el} change ={props.change} removeCart ={props.removeCart}/>
+                   <CardItem key={el.id}  el={el} change ={change} removeCart ={removeCart}/>
                 )})
         }
        

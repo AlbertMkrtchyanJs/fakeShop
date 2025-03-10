@@ -1,10 +1,12 @@
 import { Formik, Form, Field } from "formik";
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import style from "./Login.module.css";
+import { MyContext } from "../../context/myContext";
 
-const Login = ({ users }) => {
+const Login = () => {
+  const {users} = useContext(MyContext)
   const navigate = useNavigate();
 
   const proverka = (val, users) => {
