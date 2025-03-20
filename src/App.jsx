@@ -3,10 +3,9 @@ import { useEffect } from "react";
 import { data } from "./data/data";
 import { MyContext } from "./context/myContext";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductAC } from "./store/reducers/prodReducer";
 import { addToCartAC, clearCartAC } from "./store/reducers/mainReducer";
 import { removeItemAC } from "./store/reducers/removeReducer";
-import { instance } from "./api/api";
+import { API } from "./api/api";
 
 import CardPage from "./pages/CardPage/CardPage";
 import Layout from "./components/Layout/Layout";
@@ -27,7 +26,7 @@ function App() {
   const { count } = useSelector((state) => state.countState);
 
   useEffect(() => {
-    instance.get("/products").then((res) => dispatch(getProductAC(res.data)));
+    API.getProd(dispatch)
   }, [dispatch]);
 
   useEffect(() => {

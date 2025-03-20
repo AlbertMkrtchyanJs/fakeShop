@@ -1,22 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import { useParams } from 'react-router-dom'
-import { instance } from '../../api/api'
+import { API } from '../../api/api'
 import Button from '../../components/Button/Button'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { getCartBuyItemAC } from '../../store/reducers/cartReducer'
 
 const Product = () => {
-   const [product,setProduct] = useState({})
+  const dispatch = useDispatch()
    const {id} = useParams()
+   const product = useSelector((state) => state.productState.product)
    
    useEffect(()=>{
-instance.get(`/products/${id}`)
-.then((res)=> setProduct(res.data)
-)
+    API.fetchProd(dispatch,id)
    },[id])
+
+   const handleToCart = () =>{
+    dispatch(getCartBuyItemAC(product))
+   }
   return (
 
     <div>
-        <h1>{product?.title}</h1>
+        <h1>{product.title}</h1>
         <img src={product.image} width={250}/>
         <Button handleToCart = {handleToCart}/>
     </div>
