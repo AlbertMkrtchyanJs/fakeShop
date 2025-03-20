@@ -6,10 +6,6 @@ import { Provider } from 'react-redux'
 
 import './index.css'
 
-
-console.log(store);
-
-
 createRoot(document.getElementById('root')).render(
 <Provider store={store}>
     <BrowserRouter>

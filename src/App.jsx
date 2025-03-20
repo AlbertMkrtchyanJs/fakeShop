@@ -1,10 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { data } from "./data/data";
 import { MyContext } from "./context/myContext";
-import {useDispatch,useSelector} from 'react-redux'
-import { getProductAC } from "./store/store";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getProductAC } from "./store/reducers/prodReducer";
+import { addToCartAC, clearCartAC } from "./store/reducers/mainReducer";
+import { removeItemAC } from "./store/reducers/removeReducer";
+import { instance } from "./api/api";
 
 import CardPage from "./pages/CardPage/CardPage";
 import Layout from "./components/Layout/Layout";
@@ -15,55 +17,47 @@ import Reg from "./pages/Reg/Reg";
 import Profile from "./pages/Profile/Profile";
 
 import style from "./App.module.css";
-import { instance } from "./api/api";
-
-
-
 
 function App() {
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const {users,cards,prod} = useSelector((state) => state)
-
-  
+  const { cards } = useSelector((state) => state.mainState);
+  const { prod } = useSelector((state) => state.prodState);
+  const { users } = useSelector((state) => state.userState);
+  const { count } = useSelector((state) => state.countState);
 
   useEffect(() => {
-    instance.get("/products")
-    .then((res) => dispatch(getProductAC(res.data)));
-    
+    instance.get("/products").then((res) => dispatch(getProductAC(res.data)));
   }, [dispatch]);
 
-  useEffect(()=> {
+  useEffect(() => {
     localStorage.setItem("items", JSON.stringify(cards));
-  },[cards])
+  }, [cards]);
 
   const removeCart = (id) => {
-    setCards(cards.filter((cards) => cards.id !== id));
+    dispatch(removeItemAC(id));
   };
 
   const change = (count, id) => {
-    setCards(
-      cards.map((card) => {
-        if (card.id === id) {
-          return {
-            ...card,
-            count: count,
-            cardPrice: card.price * count,
-          };
-        } else {
-          return card;
-        }
-      })
-    );
+    cards.map((card) => {
+      if (card.id === id) {
+        return {
+          ...card,
+          count: count,
+          cardPrice: card.price * count,
+        };
+      } else {
+        return card;
+      }
+    });
   };
 
   const ClaerAllPage = () => {
-    setCards([]);
+    dispatch(clearCartAC(cards));
   };
 
   const addToCart = (prod) => {
-  dispatch({type: 'addtocart' , payload : prod})
-   
+    dispatch(addToCartAC(prod));
   };
 
   return (
@@ -78,8 +72,7 @@ const dispatch = useDispatch()
           removeCart,
           ClaerAllPage,
           users,
-          setUsers,
-          
+          count,
         }}
       >
         <Routes>

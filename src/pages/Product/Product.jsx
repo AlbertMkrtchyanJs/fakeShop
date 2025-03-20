@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { instance } from '../../App'
+import { instance } from '../../api/api'
 import Button from '../../components/Button/Button'
 
 

@@ -6,7 +6,7 @@ import style from './CardPage.module.css'
 import { MyContext } from '../../context/myContext'
 
 const CardPage = () => {
-const {cards,removeCart,ClaerAllPage,change} = useContext(MyContext)
+const {cards,removeCart,ClaerAllPage} = useContext(MyContext)
   const clear = () => {
     ClaerAllPage()
   }
@@ -22,7 +22,7 @@ const {cards,removeCart,ClaerAllPage,change} = useContext(MyContext)
         {
             cards.map((el)=>{
                 return (
-                   <CardItem key={el.id}  el={el} change ={change} removeCart ={removeCart}/>
+                   <CardItem key={el.id}  el={el}  removeCart ={removeCart}/>
                 )})
         }
        

@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+
+import { useDispatch, useSelector } from 'react-redux'
 import style from './CardItem.module.css'
+import { getMinusCountAC, getPlusCountAC } from '../../store/reducers/countReducer'
+import { useContext } from 'react'
+import { MyContext } from '../../context/myContext'
+
 
 const CardItem = (props) => {
-    let [count,setCount] = useState(props.el.count)
+   const {change} = useContext(MyContext)
+    const dispatch = useDispatch()
+   const {count} = useSelector((state) => state.countState)
 
     const remove = () => {
     props.removeCart(props.el.id)
@@ -11,14 +18,14 @@ const CardItem = (props) => {
 
     const minus = () => {
         if (count > 1) {
-            setCount(--count)
-            props.change(count,props.el.id)
+            dispatch(getMinusCountAC(count))
+            change(count,props.el.id)
         }
     }
 
     const plus = () =>{
-        setCount(++count)
-        props.change(count,props.el.id)
+        dispatch(getPlusCountAC(count))
+        change(count,props.el.id)
     }
   return (
     <div className={style.Big}>

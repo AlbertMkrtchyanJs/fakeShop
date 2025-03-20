@@ -1,5 +1,4 @@
 import { Formik,Form,Field,ErrorMessage} from 'formik'
-import * as YUP from 'yup'
 import { useNavigate } from 'react-router-dom'
 
 import React, { useContext } from 'react'
@@ -9,18 +8,14 @@ import { MyContext } from '../../context/myContext'
 
 const Reg = () => {
 
-    const{setUsers} = useContext(MyContext)
+    const {valid} = useContext(MyContext)
     const regist = (val) => {
         navigate("/")
         setUsers((prev) => [...prev,val])
     }
     const navigate = useNavigate()
 
-    const validaionSchema = YUP.object().shape({
-        name : YUP.string().min(3,'Too short!!').max(8,'Too long!!'),
-        email: YUP.string().email('Incorrect email!!'),
-        password: YUP.string().min(4,'Still short!!')
-    }) 
+    
 
   return (
     <div>
@@ -32,7 +27,7 @@ const Reg = () => {
             password: ''
         }}
         onSubmit={regist}
-        validationSchema={validaionSchema}
+        validationSchema={valid}
         >
             {()=>(
                 <Form className={style.regForm}>
